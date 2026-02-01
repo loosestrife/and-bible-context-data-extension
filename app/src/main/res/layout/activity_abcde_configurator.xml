@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <EditText
+        android:id="@+id/edit_text_query"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:autofillHints="name"
+        android:hint="Enter search query"
+        android:inputType="text"
+        app:layout_constraintEnd_toStartOf="@+id/button_cite_to_quote"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button_cite_to_quote"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="Cite2Quote"
+        app:layout_constraintBaseline_toBaselineOf="@+id/edit_text_query"
+        app:layout_constraintEnd_toStartOf="@+id/button_bible_search" />
+
+    <Button
+        android:id="@+id/button_bible_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="Search"
+        app:layout_constraintBaseline_toBaselineOf="@+id/edit_text_query"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/quote_textview"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="16dp"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/switches_flow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_query"
+        tools:text="This is where the quote will appear." />
+
+    <androidx.constraintlayout.helper.widget.Flow
+        android:id="@+id/switches_flow"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        app:constraint_referenced_ids="switch_linebreaks,switch_pilcrows,switch_verse_numbers,switch_chevrons,switch_brackets"
+        app:flow_wrapMode="chain"
+        app:layout_constraintBottom_toTopOf="@id/andbible_version_textview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Switch
+        android:id="@+id/switch_linebreaks"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:text="Linebreaks"
+        tools:ignore="UseSwitchCompatOrMaterial3" />
+
+    <Switch
+        android:id="@+id/switch_pilcrows"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:text="Pilcrows"
+        tools:ignore="UseSwitchCompatOrMaterial3" />
+
+    <Switch
+        android:id="@+id/switch_verse_numbers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:text="Verse Numbers"
+        tools:ignore="UseSwitchCompatOrMaterial3" />
+
+    <Switch
+        android:id="@+id/switch_chevrons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:text="Chevrons"
+        tools:ignore="UseSwitchCompatOrMaterial3" />
+
+    <Switch
+        android:id="@+id/switch_brackets"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:text="Brackets"
+        tools:ignore="UseSwitchCompatOrMaterial3" />
+
+    <TextView
+        android:id="@+id/andbible_version_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="AndBible Version: Not Found" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

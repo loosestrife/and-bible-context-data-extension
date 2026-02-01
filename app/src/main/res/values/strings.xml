@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">AndBible Context Data Extension</string>
+    <string name="search_the_Bible">Search the Bible</string>
+    <string name="cite_to_quote">Bible Cite to Quote</string>
+</resources>
