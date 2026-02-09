@@ -57,7 +57,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"
-        app:constraint_referenced_ids="switch_linebreaks,switch_pilcrows,switch_verse_numbers,switch_chevrons,switch_brackets"
+        app:constraint_referenced_ids="switch_linebreaks,switch_pilcrows,switch_verse_numbers,switch_chevrons,switch_brackets,switch_raw_osis"
         app:flow_wrapMode="chain"
         app:layout_constraintBottom_toTopOf="@id/andbible_version_textview"
         app:layout_constraintEnd_toEndOf="parent"
@@ -101,6 +101,14 @@
         android:layout_height="wrap_content"
         android:checked="true"
         android:text="Brackets"
+        tools:ignore="UseSwitchCompatOrMaterial3" />
+
+    <Switch
+        android:id="@+id/switch_raw_osis"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="false"
+        android:text="Raw OSIS"
         tools:ignore="UseSwitchCompatOrMaterial3" />
 
     <TextView

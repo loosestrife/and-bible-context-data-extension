@@ -51,7 +51,8 @@ class Cite2QuoteActivity : ComponentActivity() {
                                 pilcrows = settingsDataStore.pilcrows.first(),
                                 verseNumbers = settingsDataStore.verseNumbers.first(),
                                 chevrons = settingsDataStore.chevrons.first(),
-                                brackets = settingsDataStore.brackets.first()
+                                brackets = settingsDataStore.brackets.first(),
+                                rawOsis = settingsDataStore.rawOsis.first()
                             )
                         } else {
                             quote = rawQuote
@@ -124,9 +125,13 @@ class Cite2QuoteActivity : ComponentActivity() {
         pilcrows: Boolean,
         verseNumbers: Boolean,
         chevrons: Boolean,
-        brackets: Boolean
+        brackets: Boolean,
+        rawOsis: Boolean
     ): String {
         //Log.d(TAG, "processXml called with xmlInput: $xmlInput, linebreaks: $linebreaks, pilcrows: $pilcrows, verseNumbers: $verseNumbers, chevrons: $chevrons")
+        if(rawOsis){
+            return xmlInput
+        }
         val factory = XmlPullParserFactory.newInstance()
         val xpp = factory.newPullParser()
         xpp.setInput(StringReader("<root>$xmlInput</root>")) // Wrapped in root for valid XML
@@ -147,7 +152,9 @@ class Cite2QuoteActivity : ComponentActivity() {
                     spaceBeforeNextText = false
                 }
                 if(verseNumber != null){
-                    para.append(verseNumber)
+                    if(verseNumbers) {
+                        para.append(verseNumber)
+                    }
                     verseNumber = null
                 }
                 if(pilcrow && pilcrows){
@@ -183,6 +190,9 @@ class Cite2QuoteActivity : ComponentActivity() {
                         "chapter" -> {
                             dropText = true
                         } // this was never part of the original text
+                        "note" -> {
+                            dropText = true
+                        }
                         "transChange" -> {
                             if (brackets) {
                                 addText("[")
@@ -203,6 +213,9 @@ class Cite2QuoteActivity : ComponentActivity() {
                         "chapter" -> {
                             dropText = false
                         }
+                        "note" -> {
+                            dropText = false
+                        }
                         "transChange" -> {
                             if (brackets) {
                                 addText("]")
@@ -217,7 +230,9 @@ class Cite2QuoteActivity : ComponentActivity() {
             eventType = xpp.next()
         }
 
-        return paras.joinToString("\n") { (if (chevrons) "\n> " else "\n  ") + it.toString() }
+        return paras.joinToString(if(linebreaks) "\n" else " ") {
+            (if (chevrons) "> " else "") + it.toString()
+        }
     }
 
     companion object {
@@ -228,3 +243,5 @@ class Cite2QuoteActivity : ComponentActivity() {
         private const val AB_CLASS_GET_PASSAGE = "net.bible.android.activity.GetPassageActivity"
     }
 }
+
+// <div><title type='x-gen'>Jeremiah 17:11</title><verse osisID='Jer.17.11' verseOrdinal='20156'><transChange type='added'>As</transChange> <w lemma='strong:H07124'>the partridge</w> <w lemma='strong:H01716' morph='strongMorph:TH8804'>sitteth</w> <transChange type='added'>on eggs</transChange>, <w lemma='strong:H03205' morph='strongMorph:TH8804'>and hatcheth</w> <transChange type='added'>them</transChange> not; <transChange type='added'>so</transChange> <w lemma='strong:H06213' morph='strongMorph:TH8802'>he that getteth</w> <w lemma='strong:H06239'>riches</w>, <w lemma='strong:H04941'>and not by right</w>, <w lemma='strong:H05800' morph='strongMorph:TH8799'>shall leave</w> <w lemma='strong:H02677'>them in the midst</w> <w lemma='strong:H03117'>of his days</w>, <w lemma='strong:H0319'>and at his end</w> <w lemma='strong:H05036'>shall be a fool</w>.<note type='study'><catchWord>sitteth…</catchWord>: or, <rdg type='alternate'>gathereth young which she hath not brought forth</rdg></note></verse></div>

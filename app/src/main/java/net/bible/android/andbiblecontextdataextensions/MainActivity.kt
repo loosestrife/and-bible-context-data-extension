@@ -76,16 +76,21 @@ class MainActivity : ComponentActivity() {
             binding.switchPilcrows to (settingsDataStore.pilcrows to settingsDataStore::savePilcrows),
             binding.switchVerseNumbers to (settingsDataStore.verseNumbers to settingsDataStore::saveVerseNumbers),
             binding.switchChevrons to (settingsDataStore.chevrons to settingsDataStore::saveChevrons),
-            binding.switchBrackets to (settingsDataStore.brackets to settingsDataStore::saveBrackets)
+            binding.switchBrackets to (settingsDataStore.brackets to settingsDataStore::saveBrackets),
+            binding.switchRawOsis to (settingsDataStore.rawOsis to settingsDataStore::saveRawOsis)
         )
 
         preferenceBindings.forEach { (switch, preference) ->
             val (readFlow, saveFunction) = preference
+
+            // Coroutine to read the initial value and update the switch
             lifecycleScope.launch {
                 readFlow.collect { isChecked ->
                     switch.isChecked = isChecked
                 }
             }
+
+            // Listener to save the new value when the switch is changed
             switch.setOnCheckedChangeListener { _, isChecked ->
                 lifecycleScope.launch {
                     saveFunction(isChecked)

@@ -34,6 +34,10 @@ class SettingsDataStore(context: Context) {
         it[BRACKETS] ?: true
     }
 
+    val rawOsis: Flow<Boolean> = dataStore.data.map {
+        it[RAW_OSIS] ?: false
+    }
+
     suspend fun saveLinebreaks(value: Boolean) {
         dataStore.edit { it[LINEBREAKS] = value }
     }
@@ -54,11 +58,16 @@ class SettingsDataStore(context: Context) {
         dataStore.edit { it[BRACKETS] = value }
     }
 
+    suspend fun saveRawOsis(value: Boolean) {
+        dataStore.edit { it[RAW_OSIS] = value }
+    }
+
     companion object {
         val LINEBREAKS = booleanPreferencesKey("linebreaks")
         val PILCROWS = booleanPreferencesKey("pilcrows")
         val VERSE_NUMBERS = booleanPreferencesKey("verse_numbers")
         val CHEVRONS = booleanPreferencesKey("chevrons")
         val BRACKETS = booleanPreferencesKey("brackets")
+        val RAW_OSIS = booleanPreferencesKey("raw_osis")
     }
 }
