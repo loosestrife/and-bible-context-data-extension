@@ -61,13 +61,13 @@ for(let i=0; i<kjvVerses.length; i++){
 for(const [vids, para] of [
   [paragraphStartingVerses, true],
   [colophonContainingVerses, false]
-]){ 
+]){
   for(const vid of vids){
     //const verse = kjv.querySelector(`[osisID="${vid}"]`);
     const verse = kjvVersesByOsisID[vid];
-    const pilcrowMarker = kjv.createElement('marker');
+    const pilcrowMarker = kjv.createElement('milestone');
     pilcrowMarker.textContent = pilcrow;
-    const lineMarker = kjv.createElement('marker');
+    const lineMarker = kjv.createElement('milestone');
     lineMarker.setAttribute('type', 'line');
     if(para){
       verse.insertBefore(pilcrowMarker, verse.firstChild);
@@ -76,7 +76,7 @@ for(const [vids, para] of [
       //const colophon = verse.querySelector('div[type="colophon"]');
       let colophon;
       const divs = verse.getElementsByTagName('div');
-      for(let i=0; i<divs; i++){
+      for(let i=0; i<divs.length; i++){
         const div = divs[i];
         if(div.getAttribute('type') === 'colophon'){
           colophon = div;
